@@ -13,6 +13,9 @@ set -eu
 # See Usage in the README. #6
 branch="$1"
 
+# Checkouts can only be done within a work tree.
+git rev-parse --is-inside-work-tree
+
 # submit50 expects to be invoked from within the directory where the files to
 # be submitted are, so it is reasonable to simply make the same assumption.
 # This is totally a valid area of improvement, though.
@@ -25,7 +28,23 @@ ref=$(git symbolic-ref --short HEAD)
 # Switch to the slug branch
 # shellcheck disable=SC1083
 if git rev-parse --verify --end-of-options "$branch"^{branch}; then
-    git switch $branch
+    git checkout "$branch"
 else
-    git checkout --orphan $branch
+    git checkout --orphan "$branch"
+    cd "$(git rev-parse --show-toplevel)"
+    rm -r ./*
 fi
+
+git checkout "$ref" -- "$assignment_dir"/*
+
+git commit -m "automated submission by git-submit50"
+# submit50 expects user.name to be the GitHub username, and therefore the name
+# of the target repository, to which the changes should be pushed.
+# A valid area of improvement.
+username=$(git config user.name)
+# TODO: this is meant to check if the push fails due to missing ssh key
+if git push "git@github.com:me50/$username.git"; then
+    git push "https://github.com/me50/$username"
+fi
+
+git checkout "$ref"
