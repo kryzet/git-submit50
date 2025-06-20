@@ -1,8 +1,8 @@
-# When bash is invoked like this, it will behave as a POSIX-conformant
+#!/usr/bin/env sh
+# ^ When bash is invoked like this, it will behave as a POSIX-conformant
 # command interpreter. However, this can only be expected to work on numerous
 # Linux distributions and not on OS X (#1, #5) or other POSIX or SUS platforms
 # (#2, #4).
-#!/usr/bin/env sh
 
 # Oddly enough, a reference to an unset variable does not cause the shell
 # to exit. See the POSIX manpage for `set` or
@@ -23,7 +23,8 @@ assignment_dir=$PWD
 ref=$(git symbolic-ref --short HEAD)
 
 # Switch to the slug branch
-if git rev-parse --verify --end-of-options $branch^{branch}; then
+# shellcheck disable=SC1083
+if git rev-parse --verify --end-of-options "$branch"^{branch}; then
     git switch $branch
 else
     git checkout --orphan $branch
