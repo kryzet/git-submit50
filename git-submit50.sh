@@ -5,8 +5,8 @@
 # (#2, #4).
 
 # Oddly enough, a reference to an unset variable does not cause the shell
-# to exit. See the POSIX manpage for `set` or
-# https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/utilities/V3_chap02.html#set
+# to exit. See the POSIX manpage for `set` (available online at
+# https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/utilities/V3_chap02.html#set)
 # to learn more.
 set -eu
 
@@ -18,7 +18,7 @@ git rev-parse --is-inside-work-tree
 
 # submit50 expects to be invoked from within the directory where the files to
 # be submitted are, so it is reasonable to simply make the same assumption.
-# This is totally a valid area of improvement, though.
+# This is a valid area of improvement, though.
 assignment_dir=$PWD
 
 # This will be the ref used to update the submission contents to the latest
