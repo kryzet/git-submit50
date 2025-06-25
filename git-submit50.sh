@@ -11,7 +11,7 @@
 set -eu
 
 # See Usage in the README. #6
-branch="$1"
+branch=$1
 
 # Checkouts can only be done within a work tree.
 git rev-parse --is-inside-work-tree
