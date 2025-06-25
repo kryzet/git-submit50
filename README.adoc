@@ -1,0 +1,83 @@
+= git-submit50
+Hassan Khalloof <166802607+kryzet@users.noreply.github.com>
+
+`git-submit50` is a shell script that can be used to submit CS50 problems
+instead of the official Python utility. This script automates the manual
+submission process through Git, because the official utility makes certain
+assumptions about its environment which may not always hold (specifically, it
+assumes that a siging key would be defined in global scope while it is valid to
+define it in repository scope). Writing this script automates the process
+described
+https://cs50.readthedocs.io/submit50/#submitting-without-submit50[here] (this
+utility's "specification") which does not make the same assumptions. It also
+uses Git as-is, without any direct manipulation of the Git repository or use of
+third-party libraries; this is more robust because a library may fall behind on
+recent updates to Git or behave differently, especially in edge cases.
+
+== Environment
+
+The utility makes a number of assumptions, which may become TODO items so that
+it is more versatile:
+
+* `/usr/bin/env` is a conformant implementation of
+https://pubs.opengroup.org/onlinepubs/9699919799/utilities/env.html[the `env` utility as described in POSIX.1-2017],
+and the first executable `sh` on your system's PATH is a conformant
+implementation of https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html[the `sh` utility as described in POSIX.1-2017],
+and the version of Git installed on your system is 2.49.0.
+* You are invoking the utility from within a directory containing the files to
+be submitted.
+* The directory containing the files to be submitted is a child of a Git
+repository's root directory.
+* The Git branch from which the utility starts operation contains the version
+of the submission files which are desired to be submitted. If that is not the
+case, switch to the branch containing said version before running the utility.
+* The Git branch from which the utility starts operation is not a detached
+HEAD. You can refer https://git-scm.com/docs/git-checkout#_detached_head[the DETACHED HEAD section]
+of the git-checkout manpage (or view it offline by passing `git help checkout`
+to your shell) to learn what that means.
+
+== Usage
+
+If the script is placed somewhere such that Git can find git-submit50.sh, the
+usage is as follows:
+[source,sh]
+----
+git submit50 <slug>
+----
+
+If that is not the case, replace `git submit50` with `git-submit50.sh`
+(yet another reason to rewrite this in a compiled language so that the file
+extension is not part of the file name).
+
+== Contributing
+
+You can find known issues in the Issues tab. Please make sure to join the
+conversation on these issues so that everyone knows how you're going about
+resolving it before submitting a pull request related to it. Maintainers will
+reject any contributions not following process and will point the contributor
+here. Please make sure to also look for areas of improvement in the comments on
+the script, so that you may open issues on them and describe how you would like
+to contribute improvements.
+
+Aside from known issues and marginal improvements, there seem to be two ways to
+go forward:
+
+* Optimize the script for terseness and readability. There may be better ways
+available in future versions of Git to perform the workflow this script
+automates, and so it is advisable that patches be contributed in accordance
+with the latest version's features. If that causes issues in readability,
+however, then readability may sometimes be prioritized.
+* Optimize the script for stability and effeciency. It may be possible to do
+what the script currently does with plumbing commands in a way that is more
+effecient. In other words, there may exist a way such that the number of
+operations performed on the git repository is fewer while the required behavior
+is still produced. This will help performance, and using plumbing commands
+likely means a program that requires fewer modifications over time. A few
+plumbing commands are already in use because there are no porcelain
+equivalents.
+
+It has not yet been decided which of these two directions shall be followed;
+please https://github.com/kryzet/git-submit50/discussions/3[contribute to the decision-making process]
+so that this section may be revised.
+
+include::SECURITY.adoc[leveloffset=+1]

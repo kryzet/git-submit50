@@ -44,7 +44,7 @@ git commit -m "automated submission by git-submit50"
 username=$(git config user.name)
 # #7: this is meant to check if the push fails due to an SSH-specific error. A
 # potential solution is checking for exit codes defined in sysexits.h.3 (Linux;
-# likely there are equivalents on other platforms), but it's not yet verified
+# there are probably equivalents on other platforms), but it's not yet verified
 # whether those are the same exit codes used by `git push` in case of the error
 # in question.
 if git push "git@github.com:me50/$username.git" != 0; then
