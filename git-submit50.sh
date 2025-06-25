@@ -42,8 +42,12 @@ git commit -m "automated submission by git-submit50"
 # of the target repository, to which the changes should be pushed.
 # A valid area of improvement.
 username=$(git config user.name)
-# TODO: this is meant to check if the push fails due to missing ssh key
-if git push "git@github.com:me50/$username.git"; then
+# #7: this is meant to check if the push fails due to an SSH-specific error. A
+# potential solution is checking for exit codes defined in sysexits.h.3 (Linux;
+# likely there are equivalents on other platforms), but it's not yet verified
+# whether those are the same exit codes used by `git push` in case of the error
+# in question.
+if git push "git@github.com:me50/$username.git" != 0; then
     git push "https://github.com/me50/$username"
 fi
 
