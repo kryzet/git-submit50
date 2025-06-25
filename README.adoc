@@ -80,4 +80,4 @@ It has not yet been decided which of these two directions shall be followed;
 please https://github.com/kryzet/git-submit50/discussions/3[contribute to the decision-making process]
 so that this section may be revised.
 
-include::SECURITY.adoc[leveloffset=+1]
+//include::SECURITY.adoc[leveloffset=+1]
