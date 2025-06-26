@@ -46,7 +46,8 @@ usage is as follows:
 git submit50 <slug>
 ----
 
-If that is not the case, replace `git submit50` with `git-submit50`.
+If that is not the case, replace `git submit50` with a fully qualified path to
+the script file.
 
 == Contributing
 
