@@ -57,7 +57,7 @@ else
 fi
 
 git checkout "$ref" -- "$assignment_dir"/*
-
+# #8: use .gitignore as specified in spec to avoid submitting unrelated files
 git commit -m "automated submission by git-submit50"
 
 # submit50 expects user.name to be the student's GitHub account username, which
