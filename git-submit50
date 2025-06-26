@@ -10,20 +10,41 @@
 # to learn more.
 set -eu
 
-# See Usage in the README. #6
+usage() {
+    execname=$(basename "$0" .sh)
+    if test "$execname" = git-submit50; then
+        execname="git{-| }submit50"
+    fi
+    
+    echo "Usage: $execname -h | <slug>"
+    echo "  -h      Show this message"
+    echo "  <slug>  The CS50 slug to submit to"
+    
+    exit "$1"
+}
+
+# There must be exactly one command line argument...
+if test $# -ne 1; then
+    usage 2
+# ... and it may be the help option.
+elif test "$1" = -h; then
+    usage
+fi
+# At this point it is known that there is exactly one command line argument and
+# it is not the `-h` option. However, further verification is necessary (#6).
 branch=$1
 
 # Checkouts can only be done within a work tree.
 git rev-parse --is-inside-work-tree
 
+# This will be the ref used to update the submission contents to the latest
+# snapshot.
+ref=$(git symbolic-ref --short HEAD)
+
 # submit50 expects to be invoked from within the directory where the files to
 # be submitted are, so it is reasonable to simply make the same assumption.
 # This is a valid area of improvement, though.
 assignment_dir=$PWD
-
-# This will be the ref used to update the submission contents to the latest
-# snapshot.
-ref=$(git symbolic-ref --short HEAD)
 
 # Switch to the slug branch
 # shellcheck disable=SC1083
@@ -38,8 +59,10 @@ fi
 git checkout "$ref" -- "$assignment_dir"/*
 
 git commit -m "automated submission by git-submit50"
-# submit50 expects user.name to be the GitHub username, and therefore the name
-# of the target repository, to which the changes should be pushed.
+
+# submit50 expects user.name to be the student's GitHub account username, which
+# is used to determine the name of the remote repository to which the
+# submission should be pushed.
 # A valid area of improvement.
 username=$(git config user.name)
 # #7: this is meant to check if the push fails due to an SSH-specific error. A
