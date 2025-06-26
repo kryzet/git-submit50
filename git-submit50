@@ -20,7 +20,8 @@ usage() {
     echo "  -h      Show this message"
     echo "  <slug>  The CS50 slug to submit to"
     
-    exit "$1"
+        # v If the first positional parameter is unset, substitute 0
+    exit "${1-0}"
 }
 
 # There must be exactly one command line argument...
