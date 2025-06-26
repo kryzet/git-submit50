@@ -14,7 +14,11 @@ currently being supported with security updates.
 | < 4.0   | :x:                |
 -->
 
-This project releases the utility under a rolling release model: as soon as updates are considered ready for end-user consumption, they are made available to users. Therefore, security vulnerabilities are only considered important if they are present in the utility in the way it is made available to end users.
+Security vulnerabilities are only considered important if they are present in
+the utility in the way it is made available to end users. Specifically, the
+utility is made available through a rolling release model: as soon as updates
+are considered ready for end-user consumption, they are made available to users
+and it is assumed that users are using the latest release of the software.
 
 ## Reporting a Vulnerability
 
