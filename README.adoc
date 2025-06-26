@@ -38,16 +38,15 @@ to your shell) to learn what that means.
 
 == Usage
 
-If the script is placed somewhere such that Git can find git-submit50.sh, the
+If the script is placed somewhere such that Git can find git-submit50, the
 usage is as follows:
+
 [source,sh]
 ----
 git submit50 <slug>
 ----
 
-If that is not the case, replace `git submit50` with `git-submit50.sh`
-(yet another reason to rewrite this in a compiled language so that the file
-extension is not part of the file name).
+If that is not the case, replace `git submit50` with `git-submit50`.
 
 == Contributing
 
